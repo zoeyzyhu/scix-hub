@@ -32,7 +32,7 @@ It is designed to give you:
 - generated `AGENTS.md`, `CLAUDE.md`, skills, hooks, and tool config derived from a single editable AI canon under `ai/`
 - a built-in `student` role that can turn lessons from conversation into reusable skills
 
-Forking is recommended because it gives you a central GitHub repo for syncing learned skills and workflow updates across machines and collaborators. Users should expect to need GitHub account.
+> 💡 Forking is recommended because it gives you a central GitHub repo for syncing your own specific learned skills and workflow updates across machines and collaborators. Users should expect to need a GitHub account.
 
 For a concrete example of this layout in planetary-science research, see [zoeyzyhu/scix](https://github.com/zoeyzyhu/scix).
 
