@@ -1,0 +1,4 @@
+# AUTO-GENERATED FILE. EDIT /repos.yaml INSTEAD.
+workspace_name: scix-hub
+python_version: '3.11'
+repos: {}

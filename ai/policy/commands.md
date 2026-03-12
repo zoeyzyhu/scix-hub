@@ -1,0 +1,7 @@
+- `pytest`: preferred default test entry point when a repo already uses pytest.
+- `python -m pip install -r requirements.txt`: preferred setup command for this repo.
+- `python -m scix sync`: regenerate generated files after editing `repos.yaml` or `ai/`.
+- `python -m scix sync --check`: fail if generated files are stale.
+- `xenv/bin/pre-commit run --all-files`: preferred contributor-wide formatting and lint check.
+- When a repo has its own documented commands, prefer that repo's README or test config.
+- For implementation work, record the exact test or validation command that was run.

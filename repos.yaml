@@ -1,0 +1,17 @@
+workspace_name: scix-hub
+python_version: "3.11"
+repos: {}
+
+# Replace the empty mapping above when you want to add repos. Example:
+#
+# repos:
+#   sample-repo:
+#     path: repos/sample-repo
+#     clone_url: https://github.com/your-org/sample-repo.git
+#     pip_package: sample-repo
+#     owns:
+#       - your-domain
+#     consult_when:
+#       - tasks that touch your-domain
+#     notes:
+#       - Optional guidance for contributors and agents.
