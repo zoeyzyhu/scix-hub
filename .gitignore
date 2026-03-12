@@ -1,0 +1,15 @@
+xenv/
+repos/*
+!repos/.gitkeep
+!repos/README.md
+workspace/*
+!workspace/.gitkeep
+!workspace/README.md
+.pytest_cache/
+.pre-commit-cache/
+.ruff_cache/
+__pycache__/
+*.py[cod]
+.DS_Store
+.idea/
+.vscode/
