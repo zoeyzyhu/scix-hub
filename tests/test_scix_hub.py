@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import shutil
 import subprocess
-import sys
 from pathlib import Path
 
 import pytest
@@ -33,6 +32,7 @@ def _seed_checkout(tmp_path: Path) -> Path:
         Path(".pre-commit-config.yaml"),
         Path("LICENSE"),
         Path("README.md"),
+        Path("Makefile"),
         Path("requirements.txt"),
         Path("repos.yaml"),
         Path("docs"),
@@ -49,11 +49,11 @@ def _seed_checkout(tmp_path: Path) -> Path:
     return tmp_path
 
 
-def test_python_m_scix_sync_runs_in_source_checkout(tmp_path: Path) -> None:
+def test_make_sync_runs_in_source_checkout(tmp_path: Path) -> None:
     checkout = _seed_checkout(tmp_path)
 
     result = subprocess.run(
-        [sys.executable, "-m", "scix", "sync"],
+        ["make", "sync"],
         cwd=checkout,
         capture_output=True,
         text=True,

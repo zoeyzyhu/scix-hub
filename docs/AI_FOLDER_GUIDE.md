@@ -1,7 +1,6 @@
 # Maintaining `/ai`
 
-This document is for people who change the shared agent behavior inside the
-`scix-hub` repo.
+This document is for people who change the shared agent behavior inside the `scix-hub` repo.
 
 ## Canonical Inputs
 
@@ -27,8 +26,7 @@ Do not hand-edit generated files unless you are debugging the generator.
 
 ## What `repos.yaml` Controls
 
-`repos.yaml` is the human-facing source of truth for the repo catalog. It tells
-agents and bootstrap commands:
+`repos.yaml` is the human-facing source of truth for the repo catalog. It tells agents and bootstrap commands:
 
 - which repos should be cloned
 - where they should live under `repos/`
@@ -36,8 +34,7 @@ agents and bootstrap commands:
 - when a repo should be consulted first
 - any extra notes that should appear in generated overlays
 
-`python -m scix sync` turns `repos.yaml` into the generated
-`ai/policy/repos.yaml` file and updates all other derived outputs.
+`make sync` turns `repos.yaml` into the generated `ai/policy/repos.yaml` file and updates all other derived outputs.
 
 ## Safe Workflow
 
@@ -45,16 +42,14 @@ agents and bootstrap commands:
 2. Run:
 
    ```bash
-   python -m scix sync
+   make sync
    ```
 
 3. Inspect the generated diff.
 4. Run:
 
    ```bash
-   pre-commit run --all-files
-   pytest -q
-   python -m scix sync --check
+   make ci
    ```
 
 ## Important Cautions
