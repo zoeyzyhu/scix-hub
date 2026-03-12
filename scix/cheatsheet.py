@@ -28,18 +28,18 @@ WORKFLOW_SETS: tuple[WorkflowSet, ...] = (
             "source xenv/bin/activate",
             "python -m pip install --upgrade pip",
             "python -m pip install -r requirements.txt",
-            "python -m scix up",
+            "make up",
         ),
     ),
     WorkflowSet(
         title="Refresh generated files",
         note="Use this after changing repos.yaml or editable files under ai/.",
-        commands=("python -m scix sync", "python -m scix sync --check"),
+        commands=("make sync", "make sync-check"),
     ),
     WorkflowSet(
         title="Clone configured repos",
         note="Use this when one or more repos declared in repos.yaml are still missing.",
-        commands=("python -m scix install-repos",),
+        commands=("make install-repos",),
     ),
     WorkflowSet(
         title="Agent CLI fallback setup",
@@ -72,11 +72,7 @@ WORKFLOW_SETS: tuple[WorkflowSet, ...] = (
     WorkflowSet(
         title="Maintenance workflow",
         note="Use these before pushing changes to keep the repo and generated files aligned.",
-        commands=(
-            "pre-commit run --all-files",
-            "pytest -q",
-            "python -m scix sync --check",
-        ),
+        commands=("make ci",),
     ),
 )
 

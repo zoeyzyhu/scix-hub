@@ -5,13 +5,18 @@ repos: {}
 # Replace the empty mapping above when you want to add repos. Example:
 #
 # repos:
-#   sample-repo:
-#     path: repos/sample-repo
-#     clone_url: https://github.com/your-org/sample-repo.git
-#     pip_package: sample-repo
+#   pydisort:
+#     path: repos/pydisort
+#     clone_url: https://github.com/zoeyzyhu/pydisort.git
+#     pip_package: pydisort
 #     owns:
-#       - your-domain
+#       - disort
+#       - radiative_transfer_solver
+#       - quadrature
+#       - boundary_conditions
 #     consult_when:
-#       - tasks that touch your-domain
+#       - DISORT numerics
+#       - RT boundary handling
+#       - solver benchmark behavior
 #     notes:
-#       - Optional guidance for contributors and agents.
+#       - Treat pydisort as the source of truth for DISORT semantics.
