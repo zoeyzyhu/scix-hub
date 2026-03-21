@@ -8,6 +8,7 @@ import pytest
 
 import scix.bootstrap as bootstrap
 from scix.bootstrap import doctor, install_missing_repos
+from scix.exceptions import ScixError
 from scix.generator import sync_workspace
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -115,6 +116,52 @@ def test_default_template_is_repo_neutral(tmp_path: Path) -> None:
         if path.is_file()
     )
     assert generated_repo_paths == [Path(".gitkeep")]
+
+
+def test_sync_workspace_generates_v116_codex_agent_schema(tmp_path: Path) -> None:
+    checkout = _seed_checkout(tmp_path)
+    sync_workspace(checkout)
+
+    fast_roles = ["explorer", "docs-researcher"]
+    strong_roles = ["reviewer", "implementer", "tester", "student", "tutorial-designer"]
+
+    for role_name in fast_roles:
+        content = (checkout / f".codex/agents/{role_name}.toml").read_text(encoding="utf-8")
+        assert f'name = "{role_name}"' in content
+        assert 'developer_instructions = """' in content
+        assert 'model = "gpt-5.4-mini"' in content
+        assert "prompt =" not in content
+        assert "model_hint =" not in content
+        assert "tools =" not in content
+        assert "web_search" not in content
+
+    for role_name in strong_roles:
+        content = (checkout / f".codex/agents/{role_name}.toml").read_text(encoding="utf-8")
+        assert f'name = "{role_name}"' in content
+        assert 'developer_instructions = """' in content
+        assert "model =" not in content
+        assert "prompt =" not in content
+        assert "model_hint =" not in content
+        assert "tools =" not in content
+        assert "web_search" not in content
+
+    docs_researcher = (checkout / ".claude/agents/docs-researcher.md").read_text(encoding="utf-8")
+    assert "tools: read, search, web" not in docs_researcher
+
+
+def test_sync_workspace_rejects_legacy_role_keys(tmp_path: Path) -> None:
+    checkout = _seed_checkout(tmp_path)
+    roles_path = checkout / "ai/agents/roles.yaml"
+    content = roles_path.read_text(encoding="utf-8")
+    content = content.replace(
+        "    developer_instructions: |",
+        "    prompt: |\n      legacy instruction key\n    developer_instructions: |",
+        1,
+    )
+    roles_path.write_text(content, encoding="utf-8")
+
+    with pytest.raises(ScixError, match="deprecated key\\(s\\)"):
+        sync_workspace(checkout)
 
 
 def test_doctor_reports_expected_issues(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
